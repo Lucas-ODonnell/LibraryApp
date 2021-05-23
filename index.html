@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+	<meta charset="UTF-8">
+	<title>Page Title</title>
+	<meta name="viewport" content="width=device-width,initial-scale=1">
+	<link rel="stylesheet" href="./stylesheets/main.css">
+	<script defer src="script.js"></script>
+	<body>
+		<h1>Library App</h1>
+		<p class="wrap-btn">
+		<button data-modal-target="#modal">Add Book</button>
+		</p>
+
+		<div data-modal class="modal" id="modal">
+			<form data-new-book-form class="new-book-form">
+				<div class="modal-header">
+					<h2>Add A Book!</h2>
+					<button data-close-button type='button'class="close-button">&times;</button>
+				</div>
+				<div>
+					<label for="title">Title: </label>
+					<input type="text" name="title" id="title" required>
+				</div>
+
+				<div>
+					<label for="author">Author: </label>
+					<input type="text" name="author" id="author" required>
+				</div>
+				<div>
+					<label for="pages">Page Count: </label>
+					<input type="number" name="pages" id="pages" required>
+				</div>
+				<div>
+					<label for="read">Read: </label>
+					<input type="checkbox" name="read" id="read" >
+				</div>
+				<div class="submit">
+				<button data-submit-form type="submit">Submit</button>
+				</div>
+			</form>
+		</div>
+		<div id="overlay"></div>
+	</body>
+</html> 

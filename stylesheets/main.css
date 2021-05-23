@@ -1,0 +1,147 @@
+/* http://meyerweb.com/eric/tools/css/reset/ 
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+body {
+	line-height: 1;
+}
+ol, ul {
+	list-style: none;
+}
+blockquote, q {
+	quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+
+*, *::before, *::after {
+	box-sizing: border-box;
+}
+
+h1 {
+	text-align: center;
+	font-size: 3rem;
+	font-weight: bold;
+	margin-top: 16px;
+}
+
+h2 {
+	font-size: 2rem;
+	font-weight: bold;
+	margin-top: 16px;
+	display: flex;
+	justify-content: center;
+}
+
+input {
+	margin-top: 16px;
+	margin-bottom: 8px;
+}
+
+button {
+	cursor: pointer;
+}
+
+
+.wrap-btn {
+	margin-top: 16px;
+	text-align: center;
+}
+
+.modal {
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -80%) scale(0);
+	width: 500px;
+	max-width: 80%;
+	z-index: 10;
+	background-color: white;
+	border: 1px solid black;
+	border-radius: 10px;
+	transition: 200ms ease-in-out;
+}
+
+.modal.active {
+	transform: translate(-50%, -80%) scale(1);
+}
+
+.new-book-form {
+	display: flex;
+	flex-direction: column;
+	padding-left: 16px;
+	padding-bottom: 8px;
+}
+
+.submit {
+	display: flex;
+	justify-content: center;
+}
+
+.modal-header {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.modal-header .close-button {
+	border: none;
+	background: none;
+	outline: none;
+	font-size: 1.2rem;
+	font-weight: bold;
+}
+
+#overlay {
+	position: fixed;
+	opacity: 0;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background-color: rgba(0,0,0,.5);
+	pointer-events: none;
+	transition: 200ms ease-in-out;
+}
+
+#overlay.active {
+	pointer-events: all;
+	opacity: 1;
+}
+
+
+
+
