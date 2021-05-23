@@ -25,7 +25,21 @@ const showModalButton = document.querySelector('[data-modal-target]');
 const hideModalButton = document.querySelector('[data-close-button]');
 const overlay = document.getElementById('overlay');
 const popUpModal = document.querySelector('[data-modal]');
-const bookForm = document.querySelector('[data-new-book-form]')
+const bookForm = document.querySelector('[data-new-book-form]');
+const libraryItems = document.querySelector('[data-library-items]');
+
+//Display table of books*****************************************************************
+function displayBooks() {
+  libraryItems.innerHTML = myLibrary.map((book, index) => `
+  <tr>
+      <td>${book.title}</td>
+      <td>${book.author}</td>
+      <td>${book.pages}</td>
+      <td>${book.read ? 'Yes' : 'No'}</td>
+      <td></td>
+  </tr>`
+    ).join('');
+}
 
 //Buttons to open and close modal********************************************************
 showModalButton.addEventListener('click', () => {
@@ -62,6 +76,7 @@ function newBook(e) {
 	})
 	addBookToLibrary(book);
 	hideModalOnSubmit();
+	displayBooks();
 	this.reset();
 }
 
@@ -75,3 +90,4 @@ function hideModalOnSubmit() {
 	overlay.classList.remove('active');
 }
 //**************************************************************************************
+displayBooks();
