@@ -6,9 +6,9 @@ class Book {
 		this.read = params.read;
 	}
 
-	readStatus() {
-		this.read == true ? false : true;
-	} 
+	changeStatus() {
+		this.read = !this.read;
+	}
 }
 
 // Pulls the stored library and makes my Library**************************************** 
@@ -20,28 +20,120 @@ if (storedLibrary) {
 }
 
 //**************************************************************************************
-
-const showModalButton = document.querySelector('[data-modal-target]');
-const hideModalButton = document.querySelector('[data-close-button]');
-const overlay = document.getElementById('overlay');
+//[0]
 const popUpModal = document.querySelector('[data-modal]');
 const bookForm = document.querySelector('[data-new-book-form]');
 const libraryItems = document.querySelector('[data-library-items]');
+//[1]
+const sortByPage = document.querySelector('[data-page-sort]');
+const sortByRead = document.querySelector('[data-read-sort]');
+const sortByAuthor = document.querySelector('[data-author-sort]');
+const sortByTitle = document.querySelector('[data-title-sort]');
+const reverseAll = document.querySelector('[data-reverse-all]');
+//[2]
+const showModalButton = document.querySelector('[data-modal-target]');
+const hideModalButton = document.querySelector('[data-close-button]');
+const overlay = document.getElementById('overlay');
 
-//Display table of books*****************************************************************
+
+//Display table of books[0]*****************************************************************
 function displayBooks() {
-  libraryItems.innerHTML = myLibrary.map((book, index) => `
+	libraryItems.innerHTML = myLibrary.map((book, index) => `
   <tr>
       <td>${book.title}</td>
       <td>${book.author}</td>
       <td>${book.pages}</td>
-      <td>${book.read ? 'Yes' : 'No'}</td>
-      <td></td>
+      <td>${book.read ? `<button data-check-target="${index}" class="is-change">Yes</button>` : `<button data-check-target="${index}" class="is-change">No</button>`}</td>
+      <td><button data-delete-target="${index}" class="is-danger">Delete</button></td>
   </tr>`
-    ).join('');
+	).join('');
 }
 
-//Buttons to open and close modal********************************************************
+libraryItems.addEventListener('click', changeStatus);
+libraryItems.addEventListener('click', deleteBook);
+
+function changeStatus(e) {
+	if (!e.target.matches('.is-change')) return;
+	index = e.target.dataset.checkTarget;
+	myLibrary[index].changeStatus();
+	localStorage.setItem('myLibrary', JSON.stringify(myLibrary));
+	displayBooks();
+}
+
+function deleteBook(e) {
+	if (!e.target.matches('.is-danger')) return;
+	myLibrary.splice(e.target.dataset.deleteTarget, 1); //The 1 means starting at target delete 1
+	localStorage.setItem('myLibrary', JSON.stringify(myLibrary));
+	displayBooks();
+}
+
+//sorting methods[1]****************************************************************************
+sortByPage.addEventListener('click', sortPages);
+sortByRead.addEventListener('click', sortRead);
+sortByAuthor.addEventListener('click', sortAuthor);
+sortByTitle.addEventListener('click', sortTitle);
+reverseAll.addEventListener('click', reverseTheOrder);
+
+function sortPages(e) {
+	e.preventDefault();
+	myLibrary = myLibrary.sort(function(a,b) {
+		return parseFloat(a.pages) < parseFloat(b.pages) ? -1 : 1;
+	});
+	localStorage.setItem('myLibrary', JSON.stringify(myLibrary));
+	reverseTriangle();
+	displayBooks();
+}
+
+function sortRead(e) {
+	e.preventDefault();
+	myLibrary = myLibrary.sort(function(a,b) {
+		return a.read > b.read ? -1 : 1;
+	});
+
+	localStorage.setItem('myLibrary', JSON.stringify(myLibrary));
+	reverseTriangle();
+	displayBooks();
+}
+
+function sortAuthor(e) {
+	e.preventDefault();
+	myLibrary = myLibrary.sort(function(a,b) {
+		let aArray = a.author.split(" ");
+		let bArray = b.author.split(" ");
+		return aArray[aArray.length-1].localeCompare(bArray[bArray.length-1], 'en')
+	})
+	localStorage.setItem('myLibrary', JSON.stringify(myLibrary));
+	reverseTriangle()
+	displayBooks();
+}
+
+function sortTitle(e) {
+	e.preventDefault();
+	myLibrary = myLibrary.sort(function(a,b) {
+		return a.title.split(" ")[0].localeCompare(b.title.split(" ")[0], 'en')
+	})
+	localStorage.setItem('myLibrary', JSON.stringify(myLibrary));
+	reverseTriangle();
+	displayBooks();
+}
+
+function reverseTheOrder(e) {
+	e.preventDefault();
+	let tempLibrary = [];
+	for (let i = myLibrary.length-1; i >= 0; i--) {
+		tempLibrary.push(myLibrary[i]);
+	}
+	myLibrary = tempLibrary;
+	localStorage.setItem('myLibrary', JSON.stringify(myLibrary));
+	reverseAll.innerText == "▴" ? reverseAll.innerText = "▾" : reverseAll.innerText = "▴" 
+	displayBooks();
+}
+
+function reverseTriangle() {
+	reverseAll.innerText = "▴"; 
+}
+
+//Buttons to open and close modal[2]********************************************************
 showModalButton.addEventListener('click', () => {
 	const modal = document.querySelector(showModalButton.dataset.modalTarget);
 	showModal(modal);
@@ -91,3 +183,4 @@ function hideModalOnSubmit() {
 }
 //**************************************************************************************
 displayBooks();
+

@@ -28,6 +28,10 @@ article, aside, details, figcaption, figure,
 footer, header, hgroup, menu, nav, section {
 	display: block;
 }
+html {
+	overflow-y: scroll;
+	min-height: 100%;
+}
 body {
 	line-height: 1;
 }
@@ -55,9 +59,8 @@ table {
 	overflow: auto;
 	border-collapse: collapse;
 	width: 80%;
-	position: fixed;
-	left: 50%;
-	transform: translate(-50%)
+	margin-left: auto;
+	margin-right: auto;
 }
 
 td, th {
@@ -73,13 +76,18 @@ th {
 	font-weight: bold;
 }
 
+a {
+	text-decoration: none;
+	color: black;
+}
+
+a:hover {
+	color: rgb(139, 34, 34);
+}
+
 td {
 	font-size: 16px;
 	font-style: italic;
-}
-
-th:hover {
-	color: red;
 }
 
 h1 {
@@ -135,6 +143,7 @@ button {
 	flex-direction: column;
 	padding-left: 16px;
 	padding-bottom: 8px;
+	border: 1px solid black;
 }
 
 .submit {
@@ -173,6 +182,33 @@ button {
 	opacity: 1;
 }
 
+.is-danger {
+	background-color: rgba(139, 34, 34, .85);
+	color: black;
+	height: 30px;
+	border-radius: 5px;
+}
 
+.is-danger:hover {
+	background-color: rgba(34,139,34,.75);
+}
 
+.is-change {
+	background-color: rgba(34,139,34,.75);
+	color: black;
+	height: 30px;
+	border-radius: 5px;
+}
+
+.is-change:hover {
+	background-color: rgba(139, 34, 34, .75);
+}
+
+.footer {
+  padding: 1rem 0.5rem 0.5rem;
+  bottom: 20px;
+  left: 0;
+  right: 0;
+  text-align: center;
+}
 
