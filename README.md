@@ -4,7 +4,7 @@ The app allows you to add books to your library.
 
 When you save a book to your library it is saved to localStorage on your browser.
 
-<img src="https://https://i.imgur.com/wHqeQjG.png"/>
+<img src="https://i.imgur.com/wHqeQjG.png"/>
 
 <img src="https://i.imgur.com/bY5uv7E.png"/>
 
