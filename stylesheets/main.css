@@ -55,6 +55,18 @@ table {
 	box-sizing: border-box;
 }
 
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}
+
 table {
 	overflow: auto;
 	border-collapse: collapse;
@@ -105,15 +117,13 @@ h2 {
 	justify-content: center;
 }
 
-input {
-	margin-top: 16px;
-	margin-bottom: 8px;
-}
-
 button {
 	cursor: pointer;
 }
 
+strong {
+	font-weight: bold;
+}
 
 .wrap-btn {
 	margin-top: 16px;
@@ -125,36 +135,108 @@ button {
 	top: 50%;
 	left: 50%;
 	transform: translate(-50%, -80%) scale(0);
-	width: 500px;
-	max-width: 80%;
 	z-index: 10;
-	background-color: white;
-	border: 1px solid black;
-	border-radius: 10px;
 	transition: 200ms ease-in-out;
 }
 
-.modal.active {
-	transform: translate(-50%, -80%) scale(1);
-}
-
-.new-book-form {
+.newbook-container {
 	display: flex;
 	flex-direction: column;
-	padding-left: 16px;
-	padding-bottom: 8px;
-	border: 1px solid black;
-}
-
-.submit {
-	display: flex;
-	justify-content: center;
+	background-color: white;
+	box-shadow: 0 2px 5px rgba(0,0,0,00.3);
+	border-radius: 5px;
+	overflow: hidden;
+	width: 550px;
+	max-width: 100%;
 }
 
 .modal-header {
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
+	background-color: rgb(247,247,247);
+	padding: 20px 40px;
+	border-bottom: rgb(240,240,240);
+}
+
+.modal-header h2 {
+	margin: 0;
+	font-size: 2rem;
+	font-weight: bold;
+}
+
+.new-book-form {
+	padding: 30px 40px;
+}
+
+.form-control {
+	margin-bottom: 10px;
+	padding-bottom: 10px;
+	position: relative;
+}
+
+.form-control label {
+	display: inline-block;
+	margin-bottom: 5px;
+}
+
+.form-control input {
+	border: 2px solid rgb(240,240,240);
+	border-radius: 4px;
+	display: block;
+	width: 100%;
+	padding: 10px;
+	font-size: 14px;
+}
+
+.form-control.success input {
+	border-color: green;
+}
+
+.form-control.error input {
+	border-color: red;
+}
+
+.form-control i {
+	visibility: hidden;
+	position: absolute;
+	top: 35px;
+	right: 10px;
+}
+
+.form-control.success i.fa-check {
+	color: green;
+	visibility: visible;
+}
+
+.form-control.error i.fa-exclamation-circle {
+	color: red;
+	visibility: visible;
+}
+
+.form-control small {
+	visibility: hidden;
+	position: absolute;
+	bottom: -5px;
+	left: 0;
+	font-size: 12px;
+}
+
+.form-control.error small {
+	visibility: visible;
+	color: red;
+}
+
+.modal.active {
+	transform: translate(-50%, -80%) scale(1);
+}
+
+.new-book-form button {
+	border-radius: 4px;
+	display: block;
+	width: 100%;
+	padding: 10px;
+	font-size: 16px;
 }
 
 .modal-header .close-button {

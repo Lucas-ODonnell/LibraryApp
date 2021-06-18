@@ -4,6 +4,7 @@
 	<title>My Library</title>
 	<meta name="viewport" content="width=device-width,initial-scale=1">
 	<link rel="stylesheet" href="./stylesheets/main.css">
+	<link rel="stylesheet" href="./stylesheets/css/all.css">
 	<script defer src="script.js"></script>
 	<body>
 		<h1>Library App</h1>
@@ -12,32 +13,40 @@
 		</p>
 
 		<div data-modal class="modal" id="modal">
-			<form data-new-book-form class="new-book-form">
+			<div class="newbook-container">
 				<div class="modal-header">
 					<h2>Add A Book!</h2>
 					<button data-close-button type='button'class="close-button">&times;</button>
 				</div>
-				<div>
-					<label for="title">Title: </label>
-					<input type="text" name="title" id="title" required>
-				</div>
-
-				<div>
-					<label for="author">Author: </label>
-					<input type="text" name="author" id="author" required>
-				</div>
-				<div>
-					<label for="pages">Page Count: </label>
-					<input type="number" name="pages" id="pages" required>
-				</div>
-				<div>
-					<label for="read">Read: </label>
-					<input type="checkbox" name="read" id="read" >
-				</div>
-					<div class="submit">
-						<button data-submit-form type="submit">Submit</button>
+				<form data-new-book-form class="new-book-form" novalidate>
+					<div class="form-control">
+						<label for="title"><strong>Title</strong></label>
+						<input type="text" name="title" id="title" >
+						<i class="fas fa-check"></i>
+						<i class="fas fa-exclamation-circle"></i>
+						<small></small>
 					</div>
-			</form>
+					<div class="form-control">
+						<label for="author"><strong>Author</strong></label>
+						<input type="text" name="author" id="author" >
+						<i class="fas fa-check"></i>
+						<i class="fas fa-exclamation-circle"></i>
+						<small></small>
+					</div>
+					<div class="form-control">
+						<label for="pages"><strong>Page Count</strong></label>
+						<input type="text" name="pages" id="pages">
+						<i class="fas fa-check"></i>
+						<i class="fas fa-exclamation-circle"></i>
+						<small></small>
+					</div>
+					<div>
+						<label for="read"><strong>Read:</strong></label>
+						<input type="checkbox" name="read" id="read" >
+					</div>
+						<button data-submit-form type="submit">Submit</button>
+				</form>
+			</div>
 		</div>
 		<div id="overlay"></div>
 		<br>

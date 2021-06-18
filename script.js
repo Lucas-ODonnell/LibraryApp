@@ -34,6 +34,10 @@ const reverseAll = document.querySelector('[data-reverse-all]');
 const showModalButton = document.querySelector('[data-modal-target]');
 const hideModalButton = document.querySelector('[data-close-button]');
 const overlay = document.getElementById('overlay');
+//form-inputs
+const titleInput = document.getElementById('title');
+const authorInput = document.getElementById('author');
+const pagesInput = document.getElementById('pages');
 
 
 //Display table of books[0]*****************************************************************
@@ -54,7 +58,7 @@ libraryItems.addEventListener('click', deleteBook);
 
 function changeStatus(e) {
 	if (!e.target.matches('.is-change')) return;
-	index = e.target.dataset.checkTarget;
+	const index = e.target.dataset.checkTarget;
 	myLibrary[index].changeStatus();
 	localStorage.setItem('myLibrary', JSON.stringify(myLibrary));
 	displayBooks();
@@ -155,21 +159,24 @@ function hideModal(modal) {
 	modal.classList.remove('active');
 	overlay.classList.remove('active');
 }
+
 //Submit Form***************************************************************************
 bookForm.addEventListener('submit', newBook);
 
 function newBook(e) {
 	e.preventDefault();
-	book = new Book({
-		title: document.querySelector('[name=title]').value,
-		author: document.querySelector('[name=author]').value,
-		pages: document.querySelector('[name=pages]').value,
-		read: document.querySelector('[name=read]').checked
-	})
-	addBookToLibrary(book);
-	hideModalOnSubmit();
-	displayBooks();
-	this.reset();
+	if (validateForm()) {
+		const book = new Book({
+			title: document.querySelector('[name=title]').value,
+			author: document.querySelector('[name=author]').value,
+			pages: document.querySelector('[name=pages]').value,
+			read: document.querySelector('[name=read]').checked
+		})
+		addBookToLibrary(book);
+		hideModalOnSubmit();
+		displayBooks();
+		this.reset();
+	}
 }
 
 function addBookToLibrary(book) {
@@ -182,5 +189,83 @@ function hideModalOnSubmit() {
 	overlay.classList.remove('active');
 }
 //**************************************************************************************
-displayBooks();
+//Form Validation
 
+const validateForm = () => {
+	const titleValue = titleInput.value.trim();
+	const authorValue = authorInput.value.trim();
+	const pagesValue = pagesInput.value.trim();
+	if (
+		validatesTitle(titleValue) 
+		&& validatesAuthor(authorValue) 
+		&& validatesPages(pagesValue)
+	) {
+		resetFormInput(titleInput, authorInput, pagesInput);
+		return true;
+	}
+}
+
+const validatesTitle = (titleValue) => {
+	if (inputIsEmpty(titleValue)) {
+		showError(titleInput, "A book needs a title!");
+		return false;
+	} else {
+		showSuccess(titleInput);
+		return true;
+	}
+}
+
+const validatesAuthor = (authorValue) => {
+	if (inputIsEmpty(authorValue)) {
+		showError(authorInput, "Author cannot be blank!");
+		return false;
+	} else {
+		showSuccess(authorInput);
+		return true;
+	}
+}
+
+const validatesPages = (pagesValue) => {
+	if (notANumber(pagesValue)) {
+		showError(pagesInput, "Pages must be a number!");
+		return false;
+	} else if (inputIsEmpty(pagesValue)) {
+		showError(pagesInput, "Pages cannot be blank!");
+		return false;
+	} else {
+		showSuccess(pagesInput);
+		return true;
+	}
+}
+
+const inputIsEmpty = (input) => {
+	if (input === "") return true;
+} 
+
+const notANumber = (input) => {
+	return isNaN(input);
+}
+
+const showError = (input, message) => {
+	const formControl = input.parentElement; 
+	const small = formControl.querySelector('small');
+	small.innerText = message;
+	formControl.className = 'form-control error';
+}
+
+const showSuccess = (input) => {
+	const formControl = input.parentElement;
+	formControl.className = 'form-control success';
+}
+
+const resetFormInput = (title, author, pages) => {
+	const titleFormControl = title.parentElement;
+	const authorFormControl = author.parentElement;
+	const pagesFormControl = pages.parentElement;
+	titleFormControl.className = "form-control";
+	authorFormControl.className = "form-control";
+	pagesFormControl.className = "form-control";
+}
+
+
+displayBooks();
